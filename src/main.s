@@ -52,12 +52,3 @@
 .byte $00, $00
 ;Filler?
 .byte $00, $00, $00, $00, $00, $00, $00, $00
-
-.segment zp ;zero page
-.org $0
-
-.segment text ;code
-.org $C000
-
-.segment data ;data
-.org $200
