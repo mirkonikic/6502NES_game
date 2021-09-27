@@ -260,19 +260,19 @@ NMI:
 ;$3F1D - $3F1F	Sprite palette 3
 
 palette_data_bckg:
-	.byte	$2B, $11, $1B, $1C
-	.byte	$2B, $15, $11, $20
-	.byte	$2B, $25, $26, $29
-	.byte	$2B, $30, $38, $3A
+	.byte	$05, $11, $1B, $1C
+	.byte	$05, $15, $11, $20
+	.byte	$05, $25, $26, $29
+	.byte	$05, $30, $38, $3A
 		
 palette_data_sprite:
-	.byte	$2B, $10, $25, $2A
-	.byte	$2B, $31, $32, $3B
-	.byte	$2B, $3C, $3B, $38
-	.byte	$2B, $36, $35, $24
+	.byte	$05, $10, $25, $2A
+	.byte	$05, $31, $32, $3B
+	.byte	$05, $3C, $3B, $38
+	.byte	$05, $36, $35, $24
 
 sprite_data:
-	.byte 	$08, $00, $00, $08
+	.byte 	$08, $01, $00, $08
 	.byte	$08, $02, $00, $10
 	.byte 	$10, $03, $00, $08
 	.byte	$10, $04, $00, $10
