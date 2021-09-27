@@ -4,5 +4,9 @@ memory tester[1]</br>
 an hdd bad blocks tester[2]<br/>
 a boot loader[3]</br>
 
+
+### Version 2 <br>
+!['version 2'](img/version2.jpg)<br>
+
 ### Version 1 <br>
 !['version 1'](img/version1.jpg)<br>
