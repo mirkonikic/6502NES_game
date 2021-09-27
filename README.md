@@ -12,6 +12,11 @@ https://www.nesdev.com/neshdr20.txt
 https://cc65.github.io/doc/ca65.html#ss4.3
 https://www.middle-engine.com/blog/posts/2020/06/23/programming-the-nes-the-6502-in-detail
 
+http://fms.komkon.org/EMUL8/NES.html
+http://nesdev-wiki.nes.science/wikipages/INES.xhtml
+https://www.youtube.com/playlist?list=PL29OkqO3wUxzOmjc0VKcdiNPqwliHEuEk
+https://www.youtube.com/playlist?list=PL29OkqO3wUxyF9BsTAgZkmCEVtC77rgff
+
 http://nerdy-nights.nes.science/
 http://archive.6502.org/datasheets/wdc_65816_programming_manual.pdf
 https://raw.githubusercontent.com/camsaul/nesasm/master/nes_technical_documentation.txt
@@ -25,3 +30,8 @@ https://www.masswerk.at/6502/6502_instruction_set.html<br>
 http://6502.org/tutorials/<br>
 https://www.csie.ntu.edu.tw/~cyy/courses/assembly/12fall/assignments/final/<br>
 http://patater.com/gbaguy/nesasm.htm<br>
+
+http://www.6502.org/tutorials/6502opcodes.html#JSR
+
+Gotovo:
+http://skilldrick.github.io/easy6502/
