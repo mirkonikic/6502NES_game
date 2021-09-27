@@ -1,0 +1,28 @@
+Modules list:
+-------------
+main.o:
+    HEADER            Offs=000000  Size=000010  Align=00001  Fill=0000
+
+
+Segment list:
+-------------
+Name                   Start     End    Size  Align
+----------------------------------------------------
+HEADER                000000  00000F  000010  00001
+
+
+Exports list by name:
+---------------------
+__STACKSIZE__             000300 REA    
+
+
+Exports list by value:
+----------------------
+__STACKSIZE__             000300 REA    
+
+
+Imports list:
+-------------
+__STACKSIZE__ ([linker generated]):
+    [linker generated]        /home/mirko/Documents/Work/6502/6502_game/cc65/cfg/nes.cfg:27
+

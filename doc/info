@@ -1,0 +1,190 @@
+*8BIT REGISTERS
+A - accumulator
+X,Y - index registers
+Flag(P) - 7 bits show status of the pricessor
+Stack Pointer(S) - address to the current stack
+Program Counter(PC) - keeps current cpu location in program
+ 
+*LDk (lda, ldx or ldy)
+# means immediate value
+#$ means hexadecimal value; lda #$40 (load in A immediate 40 hexadecimal)
+#% means binary value; lda #%0110 (load in A immediate 0110 binary)
+#  means decimal value; lda #40 (load in A immediate 40 decimal)
+if there is no #, than its memory address
+lda $2002; load A with value at memory location 2
+002 hex
+lda 2002; -||- decimal
+
+*STk (sta, stx or sty)
+sta $2002; stores A in memory location 2002 hex
+
+*Banks:
+$0000 - Sprites
+$8000 - Code
+$FFFA - An Interrupt Table
+
+*INES Header - comes at the beginning of every ROM file and keeps track of following:
+.inesprg - how many banks are there
+.ineschr - how many picture data banks
+.inesmir - always 1
+.inesmap - mapper 0
+
+Bank 0 will be used to hold code at location $8000
+.bank 0;
+.org $8000;
+;programs code goes here...
+
+Bank 1 keeps interrupts
+.bank 1;
+.org $FFFA;
+
+.dw 0; location of NMI interrupt
+.dw Start; code to run at reset
+.dw 0; location of VBlank Interrupt
+
+Bank2 starts at $0000 and includes picture data for sprites and bg
+.bank 2;
+.org $0000;
+
+.incbin "our.bkg"; Include binary file that will contain background pic
+; data
+.incbin "our.spr"; Include file that will contain sprite data
+
+NES uses Lower Endian or 7 6 5 4 3 2 1 0 when numbering bits
+
+To set up PPU, we set values in $2000 and $2001 which are 2 PPU control registers
+
+lda #%00001000
+sta $2000
+lda #%00011110
+sta $2001
+;now we stored two bytes with certain valued bits at the ppu control registers address
+
+Now we need to make sprites and background:
+Draw tiles in Tile Layer Pro and include that file as first file in bank 2
+Same for sprites but include as second file
+Create Pallete - colors to pick from
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6502 cpu is Little Endian 8bit processor with 16bit address bus
+8bit Accumulator - A
+8bit Registers   - X, Y
+7x1bit Process status flag bits - P
+(7bit->0bit: Negative, oVerflow, reservedBreak, Decimal, Interruptdiasble, Zero, Carry)
+8bit Stack Pointer - S
+16bit Program Counter - PC
+
+Because of low number of registers, ZeroPage Addressing mode exists: fast access to first 256B of RAM to be used like registers
+
+Addressing Mode in byte size:
+1 - Implied
+3 - Absolute
+3 - Indexed Absolute
+2 - Zero Page
+2 - Relative
+1 - Accumulator
+2 - Indirect x and y
+2 - Immediate
+
+Opcodes are 8bits long and have general form AAA BBB CC
+AAA and CC - opcode
+BBB - addressing mode
+for example ORA which performs bitwise OR on A register opcode is in form 000bbb01
+where bbb can be 010 for immediate, 001 for zero or 011 for absolute and so on
+
+READ 6502 BUGS BEFORE PROGRAMMING EMULATOR
+
+Types of Interrupt:
+NMI - Non maskable interrupt - hw masking techniques cant ignore, used for immediate attention
+IRQ - Maskable Interrupt - hw signal to the cpu that stops running program and allows interrupt handler to run instead(used for network card, modem, mouse...)
+
+Triggering methods:
+Level triggered - constant pulse
+Edge triggered - signal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Arrow Keys -> JoyPad
+Z -> B Button
+X -> A Button
+Space -> Select
+Enter -> Start
+
+
+PRG RAM - Memory the CPU reads and writes from
+PRG ROM - Storage CPU can read from, but cant write to
+PPU - Generates video signal
+APU - Generates audio
+
+Segmentation:
+	16bit address bus -> 65536 possible addresses
+	address space:
+	$00 - $FF	Zero Page RAM
+	$100 - $1FF	Stack RAM
+	$200 - $7FF	General Purpose RAM
+	$2000 - $2007	PPU Registers
+	$4000 - $401F	APU, I/O Registers
+	$6000 - $7FFF	Battery Backed RAM (Extra working RAM)
+	$8000 - $FFFF	Program (PRG) ROM
+
+PPU has its own videoRAM - VRAM, that CPU cant access, only under certain conditions trough PPU
+
+CHR ROM contains Sprites
+
+
+PPU:
+	256x240 wxh
+	64 colors
+	8x8 tiles
+	32x60 or 64x30 scrollable tile map in RAM
+	64 8x8 sprites
+	
+
+PPU Address space and registers.. Pattern Table 0, 1 -> Name Table 0, Attr Table 0 ... 3 3
+	Background Palettes, Sprite Palettes, 64 Sprites(256 Bytes)
+
+8x8 -> svaki tile u pattern tabeli, se sastoji iz dva bit plane-a
+	svaki pixel ima dva bit-a, 4 mogucih vrednosti za pixel
+	0 predstavlja providni piksel (pokazuje pozadinsku boju)
+	Ostale vrednosti su boje sa jedne od 4 paleta
+
+

@@ -8,6 +8,10 @@ a:
 	$(CC) src/main.s -o obj/main.o $(CFLAGS)
 	$(LD) obj/main.o -o bin/main.nes $(LFLAGS)
 
+m:
+	$(CC) src/main.s -o obj/main.o $(CFLAGS)
+	$(LD) obj/main.o -o bin/main.nes $(LFLAGS) -m doc/map.txt
+
 #emulate
 e:	
 	$(CC) src/main.s -o obj/main.o $(CFLAGS)
