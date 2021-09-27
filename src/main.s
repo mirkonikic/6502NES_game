@@ -216,7 +216,7 @@ sprite_load:
 	LDA sprite_data, X
 	STA $0200, X		;adresa koju sam odredio da je sprite data
 	INX
-	CPX #$20	;svaki sprite se sastoji od 4 byte-a, ispisao sam to gore
+	CPX #$40	;svaki sprite se sastoji od 4 byte-a, ispisao sam to gore
 	BNE sprite_load
 
 ;Enable interrupts, da bi PPU krenuo da crta
@@ -272,21 +272,29 @@ palette_data_sprite:
 	.byte	$0f, $36, $35, $24
 
 sprite_data:
-ball:
-	.byte 	$08, $00, $00, $08
-	.byte	$08, $01, $00, $10
-	.byte 	$10, $10, $00, $08
-	.byte	$10, $11, $00, $10
-harry:	
+ball_data:
+	.byte 	$18, $00, $00, $18
+	.byte	$18, $01, $00, $20
+	.byte 	$20, $10, $00, $18
+	.byte	$20, $11, $00, $20
+harry_data:	
 	.byte 	$18, $02, $00, $08
 	.byte	$18, $03, $00, $10
 	.byte 	$20, $12, $00, $08
 	.byte	$20, $13, $00, $10
-goal:
-	.byte	$22, $20, $00, $08
-	.byte	$22, $21, $00, $10
-	.byte	$24, $22, $00, $08
-	.byte	$24, $23, $00, $10
+goal_data:
+	;precka_levo
+	.byte	$08, $20, $00, $78
+	.byte	$08, $21, $00, $80
+	;precka_desno
+	.byte	$08, $22, $00, $82
+	.byte	$08, $23, $00, $84
+	;stativa_levo
+	.byte	$10, $30, $00, $88
+	.byte	$10, $31, $00, $80
+	;stativa_desno
+	.byte	$10, $32, $00, $82
+	.byte	$10, $33, $00, $84
 
 .segment "VECTORS"
 	.org $FFFA
