@@ -1,4 +1,15 @@
-default:
-	ca65 src/main.s -o obj/main.o
-	ld65 -t nes -o bin/main.nes obj/main.o
+CC=/home/mirko/Documents/Work/6502/6502_game/cc65/bin/ca65
+LD=/home/mirko/Documents/Work/6502/6502_game/cc65/bin/ld65
+CFLAGS=-t nes
+LFLAGS=-t nes
+
+#assemble and link
+a:
+	$(CC) src/main.s -o obj/main.o $(CFLAGS)
+	$(LD) obj/main.o -o bin/main.nes $(LFLAGS)
+
+#emulate
+e:	
+	$(CC) src/main.s -o obj/main.o $(CFLAGS)
+	$(LD) obj/main.o -o bin/main.nes $(LFLAGS)
 	fceux bin/main.nes

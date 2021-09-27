@@ -38,17 +38,24 @@
 
 ;3 different interrupts: NMI ($FFFA), Reset Vector ($FFFC), BRK/IRQ ($FFFE)
 
-
 ;iNES header
-.byte "NES"	;NES magic number
-.byte $1A	;hex value 1A
+.segment "HEADER"
+	;0->3 Must not be modified
+	.byte "NES"	;NES magic number
+	.byte $1A	;Necessary character break
 
-;Number of PRG-ROM Blocks
-.byte $01
-;Number of CHR-ROM Blocks
-.byte $01
+	;4->8->15 Can be modified
+	.byte $01	;Number of PRG-ROM blocks
+	.byte $01	;Number of CHR-ROM blocks
+	.byte $00	;Lower half of mapper number & flags
+	.byte $00	;Upper half of mapper number & flags
+	;Not used, must be filled with all zeros
+	.byte $00, $00, $00, $00, $00, $00, $00, $00
 
-;Read about next part:
-.byte $00, $00
-;Filler?
-.byte $00, $00, $00, $00, $00, $00, $00, $00
+.segment "ZEROPAGE"
+
+.segment "STARTUP"
+
+.segment "VECTORS"
+
+.segment "CHARS"
