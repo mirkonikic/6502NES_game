@@ -1,0 +1,3 @@
+BreakPoint: startAddr=803E  endAddr=0000  flags=-C--X-  condition="K==#00"  desc="" 
+BreakPoint: startAddr=8045  endAddr=0000  flags=-C--X-  condition="K==#00"  desc="" 
+BreakPoint: startAddr=806F  endAddr=0000  flags=EC--X-  condition="K==#00"  desc="" 

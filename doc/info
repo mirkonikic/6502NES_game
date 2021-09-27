@@ -188,3 +188,47 @@ PPU Address space and registers.. Pattern Table 0, 1 -> Name Table 0, Attr Table
 	Ostale vrednosti su boje sa jedne od 4 paleta
 
 
+
+
+
+
+
+
+
+
+
+
+
+NES cartridge has at least 2 memory chips in it:
+PRG - connected to CPU
+CHR - connected to PPU
+
+there is at least 1 PRG ROM, and there may be additional PRG RAM to hold data
+some cartridges hace CHR ROM, which holds a fixed set of graphics tile data for PPU
+other have CHR RAM that holds data that the CPU copied from PRG ROM
+few have both PRG ROM and CHR ROM
+
+PPU can see only 8kb of data at once
+If game has more than that, will have to use MAPPER to load more data to PPU
+
+
+
+
+
+
+Nes games come in cartridges with various circuits and hardware
+Configuration and capabilities of such cartridges is commonly called their mapper
+Mappers are supposed to extend the system capabilities by adding more sound channels or adding RAM to the cartridge, even allowing games to be larger than 40K
+
+
+
+
+$0000 - $0800 		Internal RAM, 2KB chip in the NES
+$2000 - $2007		PPU access ports
+$4000 - $4017		Audio and Controller access ports
+$6000 - $7FFF		Optional WRAM inside the game cart
+$8000 - $FFFF		Game cart ROM
+
+
+
+
