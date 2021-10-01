@@ -214,6 +214,11 @@ palette_load:
 	;Kako sam podesio u $4014 da display memory bude u #$20 high byte-u, znaci da ce 2000-20ff biti sprite data memory
 
 
+;LoadPalette
+;LoadSprites
+;LoadBackgroundNameTable
+;LoadAttributesForNameTable
+
 
 ;OBRISAO SAM PRETHODNO UCITAVANJE SPRITEOVA
 ;JER SAD TO RADIM KAD KRENE IGRICA
@@ -221,6 +226,22 @@ palette_load:
 
 ;splash screen load?
 ;.include "splash_screen.asm"
+
+;Enable interrupts, da bi PPU krenuo da crta
+	CLI
+	LDA #%10010000	
+	;First bit: Generate NMI on start of every VBLANK
+	;Second bit: Sprite size - (0)8x8, (1)8x16, bckg uses second charset
+	STA $2000	;PPUCTRL register
+	;turn on drawing
+	LDA #%00011110
+	;000 - Emphasize colors
+	;First set bit: show sprites
+	;Second set bit: show background
+	;Third set bit: show sprites in leftmost 8 pixels of screen
+	;Fourth set bit: show background in leftmost 8 pixels of screen
+	;0 - grayscale (0) normal, (1) gray
+	STA $2001	;PPUMASK
 
 setup_controllers:
 	LDA #$01
@@ -237,24 +258,6 @@ splash_screen:
 	;
 	;THAN SUDDENLY BLACK SCREEN
 	.include "splash_screen.asm"
-
-;Enable interrupts, da bi PPU krenuo da crta
-	CLI
-	
-	LDA #%10010000	
-	;First bit: Generate NMI on start of every VBLANK
-	;Second bit: Sprite size - (0)8x8, (1)8x16, bckg uses second charset
-	STA $2000	;PPUCTRL register
-
-	;turn on drawing
-	LDA #%00011110
-	;000 - Emphasize colors
-	;First set bit: show sprites
-	;Second set bit: show background
-	;Third set bit: show sprites in leftmost 8 pixels of screen
-	;Fourth set bit: show background in leftmost 8 pixels of screen
-	;0 - grayscale (0) normal, (1) gray
-	STA $2001	;PPUMASK
 
 intro:
 	;harry falls from top of the screen
@@ -288,6 +291,9 @@ gameplay:
 	;since it can be alive or dead, it will be stored as a seq of bits
 	;each one is checked and updated
 Loop:
+;Init Code -> Infinite Loop -> NMI -> Graphics Updates -> Read Buttons -> Game Engine --\
+
+
 	;Each cell is updated accordingly to the rules
 
 ;old version of reading from controller
@@ -320,6 +326,8 @@ NMI:
 
 SplashScreenData:
 .include "splash_screen.bin"
+IntroScreenData:
+.include "intro_screen.bin"
 .include "palettes.asm"
 .include "sprites.asm"
 

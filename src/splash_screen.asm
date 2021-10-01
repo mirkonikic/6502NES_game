@@ -22,8 +22,15 @@
 	;background is all tiles
 	;sprites are colored ones
 
+;WAIT FOR VBLANK
+:	
+	LDA $2002
+	AND #%10000000
+	BPL :-		;branch if positive, :- (branch to previous label)
 
-
+;DISABLE PPU
+	LDA #%00000000
+	STA $2001
 	
 	;ubaci lowr i highr memory address od splash screen data adrese
 	LDA #<SplashScreenData
@@ -62,11 +69,41 @@ LoadSplashScreen:
 	JMP LoadSplashScreen		
 
 DoneSplashScreen:
+;WAIT FOR VBLANK
+:	
+	LDA $2002
+	AND #%10000000
+	BPL :-		;branch if positive, :- (branch to previous label)
+;Enable PPU
+	LDA #%00011110
+	STA $2001	;PPUMASK
+	;...
+
+
 ;ispisi press start, to bi trebalo da blinkuje
 	;mislim da se to radi sa dva pattern name table-a
 ;include readio2.asm (faster version)
-;parsujes samo
-;start press
-	;JMP DoneSplashScreen
+updatejoypad:
+	NOP
+	LDA #1
+	STA $4016
+	LDA #0
+	STA $4016
+ 
+	LDA joypad1
+	LDA joypad1
+	LDA joypad1
+	LDA joypad1
+;parsujes start
+	LSR
+	BCS splash_end
+	JMP updatejoypad
+	LDA joypad1
+	LDA joypad1
+	LDA joypad1
+	LDA joypad1
 
-
+splash_end:
+	LDA #$46
+	STA $0000
+	;... continue
