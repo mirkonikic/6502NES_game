@@ -118,7 +118,13 @@
 	;Not used, must be filled with all zeros
 	.byte $00, $00, $00, "M", "I", "R", "K", "O"
 
+.include "alias.asm"
 .segment "ZEROPAGE"
+world: .res 2	;16 bit addressing to load map
+button_state: .res 1	;8 bits to store button information
+sel_x: .res 1	;reserve 1 byte for x axis of selected cell
+sel_y: .res 1	;reserve 1 byte for y axis of selected cell
+
 .segment "STARTUP"
 RST:
 	SEI	;Disables all interrupts
@@ -189,7 +195,6 @@ clearmemory:
 ;$3000-$3EFF	mirror 2000-2eff
 ;$3F00-$3F1F	palette RAM indexes
 ;$3F20-$3FFF	mirrors 3f00-3f1f
-
 	;CPU ne moze da upisuje u VRAM od PPU-a, pa je potrebno preko registara da kaze gde u PPU-u zeli da pise, prvo pisati u PPUADDR addressu, gornji i donji byte addresse koja je 16bit addressa zbog 16 bit magistrale, pa ponovno pise u PPUDDATA da popuni VRAM, valid addresses are 0000-3FFF 
 	;Palette information
 	LDA #$3F	;higher byte of address
@@ -207,17 +212,27 @@ palette_load:
 	BNE palette_load
 
 	;Kako sam podesio u $4014 da display memory bude u #$20 high byte-u, znaci da ce 2000-20ff biti sprite data memory
-	LDX #$00
-sprite_load:
+
+
+
+;OBRISAO SAM PRETHODNO UCITAVANJE SPRITEOVA
+;JER SAD TO RADIM KAD KRENE IGRICA
+
+
+
+;	LDX #$00
+;sprite_load:
 	;byte0 - Y coordinate
 	;byte1 - index number of sprite in main.chr
 	;byte2 - attributes...
 	;byte3 - X coordinate
-	LDA sprite_data, X
-	STA $0200, X		;adresa koju sam odredio da je sprite data
-	INX
-	CPX #$40	;svaki sprite se sastoji od 4 byte-a, ispisao sam to gore
-	BNE sprite_load
+;	LDA sprite_data, X
+;	STA $0200, X		;adresa koju sam odredio da je sprite data
+;	INX
+;	CPX #$40	;svaki sprite se sastoji od 4 byte-a, ispisao sam to gore
+;	BNE sprite_load
+
+
 
 ;Enable interrupts, da bi PPU krenuo da crta
 	CLI
@@ -237,6 +252,12 @@ sprite_load:
 	;0 - grayscale (0) normal, (1) gray
 	STA $2001	;PPUMASK
 
+setup_controllers:
+	LDA #$01
+	STA $4016
+	LDA #$00
+	STA $4016
+
 ;main loop
 splash_screen:
 	;MADE BY:
@@ -245,12 +266,21 @@ splash_screen:
 	;CREDITS...
 	;
 	;THAN SUDDENLY BLACK SCREEN
+	.include "splash_screen.asm"
+
 intro:
 	;harry falls from top of the screen
 	;gets up in middle of screen
 	;stands up and other letters appear
 	;'press start to play' starts blinking
 
+;set selection panel to top left
+;on arrow press, one of these two increases
+;and on arrow press, position of mouse sprite changes
+;to sel_x and sel_y
+	LDX #$00
+	STX sel_x
+	STX sel_x
 start:
 	;When start is pressed, letters fall down
 	;and harry jumps down
@@ -270,6 +300,15 @@ gameplay:
 	;each one is checked and updated
 Loop:
 	;Each cell is updated accordingly to the rules
+
+;old version of reading from controller
+	.include "readio.asm"	;Read I/O from joypad1
+	;.include "parseio.asm"
+;faster version of reading from controller and updating character
+	;.include "readio2.asm"
+	;.include "parseio2.asm"
+
+;try to adjust the framerate
 	JMP Loop
 
 NMI:
@@ -290,17 +329,7 @@ NMI:
 ;$3F19 - $3F1B	Sprite palette 2
 ;$3F1D - $3F1F	Sprite palette 3
 
-palette_data_bckg:
-	.byte	$0e, $30, $15, $36
-	.byte	$0e, $30, $15, $36
-	.byte	$0e, $30, $15, $36
-	.byte	$0e, $30, $15, $36
-		
-palette_data_sprite:
-	.byte	$0e, $30, $15, $36
-	.byte	$0e, $30, $15, $36
-	.byte	$0e, $30, $15, $36
-	.byte	$0e, $30, $15, $36
+.include "palettes.asm"
 
 ;intro je na sred ekrana stoji ili animirano udje u ekran 
 ;	OO  GA OF LI	
@@ -328,64 +357,11 @@ palette_data_sprite:
 
 
 ;IF	komsije >= 4, celija umire od prenaseljenosti
-;IF	komsije <= 1, celija umire od izolacije
-;IF	komsije	== 3, celija se radja
 
-; 32x30 x (8x8) je ekran
-
-sprite_data:
-menu_data:
-harry_data:	
-	.byte 	$68, $e3, $00, $5C
-	.byte	$68, $e4, $00, $64
-	.byte 	$70, $f3, $00, $5C
-	.byte	$70, $f4, $00, $64
-title_game:
-	.byte 	$68, $47, $00, $6C
-	.byte	$68, $41, $00, $74
-	.byte 	$70, $4D, $00, $6C
-	.byte	$70, $45, $00, $74
-title_of:
-	.byte $68, $4f, $00, $7E
-	.byte $70, $46, $00, $7E
-	
-title_life:
-	.byte 	$68, $4C, $00, $88
-	.byte	$68, $49, $00, $8F
-	.byte 	$70, $46, $00, $88
-	.byte	$70, $45, $00, $8F
-press_start_to_play:
-	
-made_by_mirko:
-	
-block_data:
-zero:
-	.byte	$08, $10, $00, $78
-o_br:
-	.byte	$08, $11, $00, $80
-o_bl:
-	.byte	$08, $12, $00, $82
-o_tr:
-	.byte	$08, $14, $00, $84
-o_tl:
-	.byte	$08, $18, $00, $86
-t_b:
-	.byte	$08, $13, $00, $88
-t_l:
-	.byte	$08, $15, $00, $90
-t_r:
-	.byte	$10, $20, $00, $92
-t_u:
-	.byte	$10, $22, $00, $94
-t_d:
-	.byte	$10, $19, $00, $96
-t_nd:
-	.byte	$10, $16, $00, $98
-full:
-	.byte	$10, $1f, $00, $9f
+.include "sprites.asm"
 
 .segment "VECTORS"
-	.org $FFFA
+	.org $FFFA	
 	.word NMI
 	.word RST
 	;defined break interrupt, not using it
