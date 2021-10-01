@@ -220,19 +220,19 @@ palette_load:
 
 
 
-;	LDX #$00
-;sprite_load:
+	LDX #$00
+sprite_load:
 	;byte0 - Y coordinate
 	;byte1 - index number of sprite in main.chr
 	;byte2 - attributes...
 	;byte3 - X coordinate
-;	LDA sprite_data, X
-;	STA $0200, X		;adresa koju sam odredio da je sprite data
-;	INX
-;	CPX #$40	;svaki sprite se sastoji od 4 byte-a, ispisao sam to gore
-;	BNE sprite_load
+	LDA sprite_data, X
+	STA $0200, X		;adresa koju sam odredio da je sprite data
+	INX
+	CPX #$40	;svaki sprite se sastoji od 4 byte-a, ispisao sam to gore
+	BNE sprite_load
 
-
+.include "splash_screen.asm"
 
 ;Enable interrupts, da bi PPU krenuo da crta
 	CLI
@@ -266,7 +266,7 @@ splash_screen:
 	;CREDITS...
 	;
 	;THAN SUDDENLY BLACK SCREEN
-	.include "splash_screen.asm"
+	;.include "splash_screen.asm"
 
 intro:
 	;harry falls from top of the screen
@@ -328,6 +328,9 @@ NMI:
 ;$3F15 - $3F17	Sprite palette 1
 ;$3F19 - $3F1B	Sprite palette 2
 ;$3F1D - $3F1F	Sprite palette 3
+
+SplashScreenData:
+.include "splash_screen.bin"
 
 .include "palettes.asm"
 
