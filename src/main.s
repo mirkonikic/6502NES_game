@@ -219,19 +219,6 @@ palette_load:
 ;JER SAD TO RADIM KAD KRENE IGRICA
 
 
-
-	LDX #$00
-;sprite_load:
-	;byte0 - Y coordinate
-	;byte1 - index number of sprite in main.chr
-	;byte2 - attributes...
-	;byte3 - X coordinate
-;	LDA sprite_data, X
-;	STA $0200, X		;adresa koju sam odredio da je sprite data
-;	INX
-;	CPX #$40	;svaki sprite se sastoji od 4 byte-a, ispisao sam to gore
-;	BNE sprite_load
-
 ;splash screen load?
 ;.include "splash_screen.asm"
 
@@ -274,6 +261,7 @@ intro:
 	;gets up in middle of screen
 	;stands up and other letters appear
 	;'press start to play' starts blinking
+	.include "intro_screen.asm"
 
 ;set selection panel to top left
 ;on arrow press, one of these two increases
@@ -332,8 +320,8 @@ NMI:
 
 SplashScreenData:
 .include "splash_screen.bin"
-
 .include "palettes.asm"
+.include "sprites.asm"
 
 ;intro je na sred ekrana stoji ili animirano udje u ekran 
 ;	OO  GA OF LI	
@@ -361,8 +349,6 @@ SplashScreenData:
 
 
 ;IF	komsije >= 4, celija umire od prenaseljenosti
-
-.include "sprites.asm"
 
 .segment "VECTORS"
 	.org $FFFA	
