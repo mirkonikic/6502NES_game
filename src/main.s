@@ -221,18 +221,35 @@ palette_load:
 
 
 	LDX #$00
-sprite_load:
+;sprite_load:
 	;byte0 - Y coordinate
 	;byte1 - index number of sprite in main.chr
 	;byte2 - attributes...
 	;byte3 - X coordinate
-	LDA sprite_data, X
-	STA $0200, X		;adresa koju sam odredio da je sprite data
-	INX
-	CPX #$40	;svaki sprite se sastoji od 4 byte-a, ispisao sam to gore
-	BNE sprite_load
+;	LDA sprite_data, X
+;	STA $0200, X		;adresa koju sam odredio da je sprite data
+;	INX
+;	CPX #$40	;svaki sprite se sastoji od 4 byte-a, ispisao sam to gore
+;	BNE sprite_load
 
-.include "splash_screen.asm"
+;splash screen load?
+;.include "splash_screen.asm"
+
+setup_controllers:
+	LDA #$01
+	STA $4016
+	LDA #$00
+	STA $4016
+
+;main loop
+splash_screen:
+	;MADE BY:
+	;MIRKO NIKIC
+	;who is part of MIPE STUDIOS
+	;CREDITS...
+	;
+	;THAN SUDDENLY BLACK SCREEN
+	.include "splash_screen.asm"
 
 ;Enable interrupts, da bi PPU krenuo da crta
 	CLI
@@ -251,22 +268,6 @@ sprite_load:
 	;Fourth set bit: show background in leftmost 8 pixels of screen
 	;0 - grayscale (0) normal, (1) gray
 	STA $2001	;PPUMASK
-
-setup_controllers:
-	LDA #$01
-	STA $4016
-	LDA #$00
-	STA $4016
-
-;main loop
-splash_screen:
-	;MADE BY:
-	;MIRKO NIKIC
-	;who is part of MIPE STUDIOS
-	;CREDITS...
-	;
-	;THAN SUDDENLY BLACK SCREEN
-	;.include "splash_screen.asm"
 
 intro:
 	;harry falls from top of the screen

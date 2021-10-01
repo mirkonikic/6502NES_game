@@ -61,19 +61,12 @@ LoadSplashScreen:
 	INC world+1
 	JMP LoadSplashScreen		
 
-	;wait for Start press
 DoneSplashScreen:
-  LDA #%10000000   ; Enable NMI, sprites and background on table 0
-  STA $2000
-  LDA #%00011110   ; Enable sprites, enable backgrounds
-  STA $2001
-  LDA #$00         ; No background scrolling
-  STA $2006
-  STA $2006
-  STA $2005
-  STA $2005
-;include read
-;parsujes sam
+;ispisi press start, to bi trebalo da blinkuje
+	;mislim da se to radi sa dva pattern name table-a
+;include readio2.asm (faster version)
+;parsujes samo
+;start press
 	;JMP DoneSplashScreen
 
 
