@@ -238,7 +238,38 @@ sprite_load:
 	STA $2001	;PPUMASK
 
 ;main loop
+splash_screen:
+	;MADE BY:
+	;MIRKO NIKIC
+	;who is part of MIPE STUDIOS
+	;CREDITS...
+	;
+	;THAN SUDDENLY BLACK SCREEN
+intro:
+	;harry falls from top of the screen
+	;gets up in middle of screen
+	;stands up and other letters appear
+	;'press start to play' starts blinking
+
+start:
+	;When start is pressed, letters fall down
+	;and harry jumps down
+	;Than CONWAYS GAME OF LIFE, appears on top
+	;by Mirko Nikic appears on bottom next to harry
+	;Cell table appears in middle of the screen taking most of the space
+	;With A, you make cell alive
+	;With B, you make cell dead
+	;With Start you play the game
+	;With Select you pause the game
+
+gameplay:
+	;cells are drawn, also pointer to select which are alive
+	;start to play, exit to go back to intro
+	;if start is pressed, every frame, every cell is stored as a bit
+	;since it can be alive or dead, it will be stored as a seq of bits
+	;each one is checked and updated
 Loop:
+	;Each cell is updated accordingly to the rules
 	JMP Loop
 
 NMI:
@@ -260,41 +291,98 @@ NMI:
 ;$3F1D - $3F1F	Sprite palette 3
 
 palette_data_bckg:
-	.byte	$0f, $11, $1B, $1C
-	.byte	$0f, $15, $11, $20
-	.byte	$0f, $25, $26, $29
-	.byte	$0f, $30, $38, $3A
+	.byte	$0e, $30, $15, $36
+	.byte	$0e, $30, $15, $36
+	.byte	$0e, $30, $15, $36
+	.byte	$0e, $30, $15, $36
 		
 palette_data_sprite:
-	.byte	$0f, $10, $25, $2A
-	.byte	$0f, $31, $32, $3B
-	.byte	$0f, $3C, $3B, $38
-	.byte	$0f, $36, $35, $24
+	.byte	$0e, $30, $15, $36
+	.byte	$0e, $30, $15, $36
+	.byte	$0e, $30, $15, $36
+	.byte	$0e, $30, $15, $36
+
+;intro je na sred ekrana stoji ili animirano udje u ekran 
+;	OO  GA OF LI	
+;	II  ME OF FE
+
+;    press start to play!
+;		made by: Mirko Nikic
+
+;odmah po kliku na start se udje u tabelu sa belim poljima
+;na strelice mozes da selektujes celiju koju hoces da promenis
+;nekako cuvam sta je selektovano i svaki frejm azuriram celije po pravilu
+
+;	O O O
+;	O x O
+;	O O O
+
+;	16 bitova potrebno za igru sa 16 celija, 0 ili 1
+;	x x x x
+;	x x x x
+;	x x x x
+;	x x x x
+
+;	8x8 is one sprite, 64 sprites can fit the screen
+;	8 vertical x 8 horisontal
+
+
+;IF	komsije >= 4, celija umire od prenaseljenosti
+;IF	komsije <= 1, celija umire od izolacije
+;IF	komsije	== 3, celija se radja
+
+; 32x30 x (8x8) je ekran
 
 sprite_data:
-ball_data:
-	.byte 	$18, $00, $00, $18
-	.byte	$18, $01, $00, $20
-	.byte 	$20, $10, $00, $18
-	.byte	$20, $11, $00, $20
+menu_data:
 harry_data:	
-	.byte 	$18, $02, $00, $08
-	.byte	$18, $03, $00, $10
-	.byte 	$20, $12, $00, $08
-	.byte	$20, $13, $00, $10
-goal_data:
-	;precka_levo
-	.byte	$08, $20, $00, $78
-	.byte	$08, $21, $00, $80
-	;precka_desno
-	.byte	$08, $22, $00, $82
-	.byte	$08, $23, $00, $84
-	;stativa_levo
-	.byte	$10, $30, $00, $88
-	.byte	$10, $31, $00, $80
-	;stativa_desno
-	.byte	$10, $32, $00, $82
-	.byte	$10, $33, $00, $84
+	.byte 	$68, $e3, $00, $5C
+	.byte	$68, $e4, $00, $64
+	.byte 	$70, $f3, $00, $5C
+	.byte	$70, $f4, $00, $64
+title_game:
+	.byte 	$68, $47, $00, $6C
+	.byte	$68, $41, $00, $74
+	.byte 	$70, $4D, $00, $6C
+	.byte	$70, $45, $00, $74
+title_of:
+	.byte $68, $4f, $00, $7E
+	.byte $70, $46, $00, $7E
+	
+title_life:
+	.byte 	$68, $4C, $00, $88
+	.byte	$68, $49, $00, $8F
+	.byte 	$70, $46, $00, $88
+	.byte	$70, $45, $00, $8F
+press_start_to_play:
+	
+made_by_mirko:
+	
+block_data:
+zero:
+	.byte	$08, $10, $00, $78
+o_br:
+	.byte	$08, $11, $00, $80
+o_bl:
+	.byte	$08, $12, $00, $82
+o_tr:
+	.byte	$08, $14, $00, $84
+o_tl:
+	.byte	$08, $18, $00, $86
+t_b:
+	.byte	$08, $13, $00, $88
+t_l:
+	.byte	$08, $15, $00, $90
+t_r:
+	.byte	$10, $20, $00, $92
+t_u:
+	.byte	$10, $22, $00, $94
+t_d:
+	.byte	$10, $19, $00, $96
+t_nd:
+	.byte	$10, $16, $00, $98
+full:
+	.byte	$10, $1f, $00, $9f
 
 .segment "VECTORS"
 	.org $FFFA
@@ -303,4 +391,6 @@ goal_data:
 	;defined break interrupt, not using it
 
 .segment "CHARS"
-	.incbin "../chr/main.chr"
+	;.incbin "../chr/main.chr"
+	;.incbin "../chr/gof_nes.chr"
+	.incbin "../chr/gof.chr"
