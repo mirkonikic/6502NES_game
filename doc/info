@@ -232,3 +232,140 @@ $8000 - $FFFF		Game cart ROM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SCREENS MUST BE: 30x32 (x, y)
+
+--------------------------------------------------------------------------------------
+1. SPLASH SCREEN: mipe animation with blinking Press STart to play
+--------------------------------------------------------------------------------------
+
+	created by Mirko from
+
+	M     M I PPPP EEEE
+	MM   MM I P  P E
+	M M M M I P  P EEE
+	M  M  M I PPP  E
+	M     M I P    E
+	M     M I P    EEEE  
+
+	press Start to play
+
+--------------------------------------------------------------------------------------
+2. INTRO SCREEN: small animation with Harry, which you can move with arrows
+--------------------------------------------------------------------------------------
+
+
+	  O    GA O LI
+	 |||   ME F FE
+
+	press Start to play
+
+
+--------------------------------------------------------------------------------------
+3.1. INFO SCREEN: Info and tutorial nametable, scrolls down, A and up, B
+--------------------------------------------------------------------------------------
+
+John Conway (1937-2020),
+was an english mathematician.
+He was active in finite
+ groups, number, coding and
+ game theory.
+Most notably he made contrib.
+ in cellular automata, with
+ a game called Game of Life.
+
+Long before computers existed
+ conway did research with pen
+ and paper only, thats how he
+ invented Game of Life. 
+
+The game requires no players.
+The rules are as follows:
+ 0.Cell B is called cells A 
+    neighbour, if it is 
+    adjacent to cell A and
+    alive.
+ 1.Survival: every cell with
+    two or three neighbours
+    survives
+ 2.Deaths: every cell with
+    >=4 or <=1 neighbours
+    dies
+ 3.Births: every cell with 
+    exactly three neighbours
+    is a birth cell
+
+--------------------------------------------------------------------------------------
+3.2. TUTORIAL: when you scroll down, there is a tutorial
+--------------------------------------------------------------------------------------
+
+CONTROLS:
+
+A: Make alive
+B: Make dead
+Arrows: Move cursor
+Select: ???????????
+Start:  Play/Pause the game
+
+Cell if yellow is dead
+ if red is alive.
+
+Examples are as follows:
+** o* oo ...
+** ** ** ...
+
+Cursor is represented as:
+:mouse:
+
+--------------------------------------------------------------------------------------
+4. SETUP/GAMEPLAY SCREEN: setup cells and play the simulation or modify/update cells
+--------------------------------------------------------------------------------------
+
+**
+**        <- jedan sprite
+
+NES moze da podrzi 8 sprite-a u jednom redu, tako da imamo po redu (2x8) - 16x16 celija
+
+     CONWAY'S GAME OF LIFE
+
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+x x x x x x x x x x x x x x x x
+
+  O  created by:
+ ||               mirkonikic
+ /\
