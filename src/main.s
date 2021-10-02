@@ -265,12 +265,14 @@ intro:
 	;stands up and other letters appear
 	;'press start to play' starts blinking
 	.include "intro_screen.asm"
+	.include "intro_readio.asm"	;Read I/O from joypad1
 
 info_tutorial:
 	;text about john conway and game of life
 	;text on how to play with images
 	;press start to play
 	.include "info_screen.asm"
+	;.include "info_readio.asm"
 
 ;set selection panel to top left
 ;on arrow press, one of these two increases
@@ -300,12 +302,12 @@ gameplay:
 	.include "gameplay_screen.asm"
 Loop:
 ;Init Code -> Infinite Loop -> NMI -> Graphics Updates -> Read Buttons -> Game Engine --\
-
+	
+	;.include "readio.asm"
 
 	;Each cell is updated accordingly to the rules
 
 ;old version of reading from controller
-	.include "readio.asm"	;Read I/O from joypad1
 	;.include "parseio.asm"
 ;faster version of reading from controller and updating character
 	;.include "readio2.asm"
@@ -314,7 +316,8 @@ Loop:
 ;try to adjust the framerate
 	JMP Loop
 
-NMI:
+NMI:	;is called every VBLANK, mozda tada da pises
+	;ili pises preko Loop: pa nevezano za grafiku updatuje
 	;copy data in 0200 to PPU
 	LDA #$02	;copy sprite data from $0200 into PPU OAM
 	STA $4014
@@ -336,6 +339,8 @@ SplashScreenData:
 .include "splash_screen.bin"
 IntroScreenData:
 .include "intro_screen.bin"
+InfoScreenData:
+.include "info_screen.bin"
 .include "palettes.asm"
 .include "sprites.asm"
 
