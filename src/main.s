@@ -266,6 +266,12 @@ intro:
 	;'press start to play' starts blinking
 	.include "intro_screen.asm"
 
+info_tutorial:
+	;text about john conway and game of life
+	;text on how to play with images
+	;press start to play
+	.include "info_screen.asm"
+
 ;set selection panel to top left
 ;on arrow press, one of these two increases
 ;and on arrow press, position of mouse sprite changes
@@ -283,6 +289,7 @@ start:
 	;With B, you make cell dead
 	;With Start you play the game
 	;With Select you pause the game
+	.include "setup_screen.asm"
 
 gameplay:
 	;cells are drawn, also pointer to select which are alive
@@ -290,6 +297,7 @@ gameplay:
 	;if start is pressed, every frame, every cell is stored as a bit
 	;since it can be alive or dead, it will be stored as a seq of bits
 	;each one is checked and updated
+	.include "gameplay_screen.asm"
 Loop:
 ;Init Code -> Infinite Loop -> NMI -> Graphics Updates -> Read Buttons -> Game Engine --\
 
