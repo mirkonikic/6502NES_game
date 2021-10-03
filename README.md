@@ -4,7 +4,7 @@ memory tester[1]</br>
 an hdd bad blocks tester[2]<br/>
 a boot loader[3]</br>
 
-### Version 4 - "Intro screen done, beginning of Gameplay"<br>
+### Version 4 - "Intro and Info screen done, beginning of Gameplay"<br>
 
 ### Version 3 - "Splash and Intro screen almost over"<br>
 !['version 3'](img/version3.gif)<br>
