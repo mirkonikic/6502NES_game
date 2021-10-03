@@ -81,3 +81,5 @@ sprite_load:
 ;READ IO
 ;READ IO
 ;READ IO za harrija
+
+.include "wait_1_second.asm"
