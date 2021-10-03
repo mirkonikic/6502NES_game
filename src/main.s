@@ -265,14 +265,12 @@ intro:
 	;stands up and other letters appear
 	;'press start to play' starts blinking
 	.include "intro_screen.asm"
-	.include "intro_readio.asm"	;Read I/O from joypad1
 
 info_tutorial:
 	;text about john conway and game of life
 	;text on how to play with images
 	;press start to play
 	.include "info_screen.asm"
-	;.include "info_readio.asm"
 
 ;set selection panel to top left
 ;on arrow press, one of these two increases

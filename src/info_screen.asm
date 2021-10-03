@@ -45,10 +45,6 @@ LoadInfoScreen:
 	INC world+1
 	JMP LoadInfoScreen		
 
-;CLEAR SPRITE MEMORY
-;CLEAR SPRITE MEMORY
-;CLEAR SPRITE MEMORY
-
 DoneInfoScreen:
 ;WAIT FOR VBLANK
 :	
@@ -60,3 +56,14 @@ DoneInfoScreen:
 	STA $2001	;PPUMASK
 	;...
 
+
+
+
+;Mora ovde jer iznad nije radio PPU, pa ne uradi nista
+;CLEAR SPRITE MEMORY
+	LDX #$00
+	LDA #$FF
+ClearSprites:
+	STA $0200, X	;0200->02FF
+	INX
+	BNE ClearSprites ;Kada se desi roll over sa FF na vrednost 00, registera X, tada se podesi Zero Flag, jer je rezultat operacije bio 0

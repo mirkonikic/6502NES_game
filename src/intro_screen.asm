@@ -9,12 +9,12 @@
 	LDA #%00000000
 	STA $2001
 	
+;POPUNI NAAMETABLE 1
 	;ubaci lowr i highr memory address od splash screen data adrese
 	LDA #<IntroScreenData
 	STA world
 	LDA #>IntroScreenData	
 	STA world+1
-
 	;setup PPU for address which we want to populate (nametable)
 	BIT $2002	;similar to read, but faster since its 1 bit
 	LDA #$20
@@ -23,11 +23,9 @@
 	STA $2006
 ;if by accident you write in wrong address to $2006
 ;by reading from $2002, it will reset the PPU so that you can write again
-
 	;clear X and Y
 	LDX #$00
 	LDY #$00
-	
 	;load PPU
 LoadIntroScreen:
 	LDA (world), Y	;() <- address
@@ -37,7 +35,6 @@ LoadIntroScreen:
 	BNE :+
 	CPY #$C0
 	BEQ DoneIntroScreen
-
 :
 	CPY #$00
 	BNE LoadIntroScreen
@@ -45,6 +42,9 @@ LoadIntroScreen:
 	INC world+1
 	JMP LoadIntroScreen		
 
+;LOAD NAMETABLE 2
+;LOAD NAMETABLE 2
+;LOAD NAMETABLE 2 za skrolling
 
 DoneIntroScreen:
 ;WAIT FOR VBLANK
@@ -72,3 +72,12 @@ sprite_load:
 	INX
 	CPX #$40	;svaki sprite se sastoji od 4 byte-a, ispisao sam to gore
 	BNE sprite_load
+
+
+
+;DODAJ MEHANIKU ZA INTRO IGRICU
+;OVO RADIM DA BIH NAUCIO ANIMACIJU I NEKE EFEKTE
+;READ IO
+;READ IO
+;READ IO
+;READ IO za harrija
