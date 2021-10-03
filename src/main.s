@@ -125,6 +125,7 @@ button_state: .res 1	;8 bits to store button information
 sel_x: .res 1	;reserve 1 byte for x axis of selected cell
 sel_y: .res 1	;reserve 1 byte for y axis of selected cell
 
+
 .segment "STARTUP"
 RST:
 	SEI	;Disables all interrupts

@@ -83,27 +83,29 @@ DoneSplashScreen:
 ;ispisi press start, to bi trebalo da blinkuje
 	;mislim da se to radi sa dva pattern name table-a
 ;include readio2.asm (faster version)
-updatejoypad:
-	NOP
-	LDA #1
-	STA $4016
-	LDA #0
-	STA $4016
- 
-	LDA joypad1
-	LDA joypad1
-	LDA joypad1
-	LDA joypad1
-;parsujes start
-	LSR
-	BCS splash_end
-	JMP updatejoypad
-	LDA joypad1
-	LDA joypad1
-	LDA joypad1
-	LDA joypad1
+;updatejoypad:
+;	NOP
+;	LDA #1
+;	STA $4016
+;	LDA #0
+;	STA $4016
+; 
+;	LDA joypad1
+;	LDA joypad1
+;	LDA joypad1
+;	LDA joypad1
+;;parsujes start
+;	LSR
+;	BCS splash_end
+;	JMP updatejoypad
+;	LDA joypad1
+;	LDA joypad1
+;	LDA joypad1
+;	LDA joypad1
+;
+;splash_end:
+;	LDA #$46
+;	STA $0000
+;	;... continue
 
-splash_end:
-	LDA #$46
-	STA $0000
-	;... continue
+.include "wait_1_second.asm"
