@@ -14,3 +14,11 @@ a boot loader[3]</br>
 
 ### Version 1 - "Graphics beginning"<br>
 !['version 1'](img/version1.jpg)<br>
+
+### TODO:
+- [ ] optimizuj kod za 1 second wait
+- [ ] sredi da se kod intro screen ceka dok ne kliknes Start
+- [ ] zavrsi intro screen i pomeranje harija
+- [ ] sredi da se na info screenu scrolluje kad kliknes A
+- [ ] uredi malo intro screen
+- [ ] ostavi za jedan dan da implementiras gameplay posle info
