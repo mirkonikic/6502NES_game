@@ -82,4 +82,34 @@ sprite_load:
 ;READ IO
 ;READ IO za harrija
 
-.include "wait_1_second.asm"
+updatejoypad:
+       NOP
+       LDA #1
+       STA $4016
+       LDA #0
+       STA $4016
+ 
+       LDA joypad1
+       NOP
+       LDA joypad1
+       NOP
+       LDA joypad1
+       NOP
+       LDA joypad1
+       NOP
+;parsujes start
+       LSR
+       BCS splash_end
+       JMP updatejoypad
+       LDA joypad1
+       LDA joypad1
+       LDA joypad1
+       LDA joypad1
+
+splash_end:
+       LDA #$46
+       STA $0000
+       ;... continue
+
+
+;.include "wait_1_second.asm"
