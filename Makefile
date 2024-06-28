@@ -1,6 +1,6 @@
-CC=/home/mirko/Documents/Work/6502/6502_game/cc65/bin/ca65
-LD=/home/mirko/Documents/Work/6502/6502_game/cc65/bin/ld65
-CFLAGS=-t nes
+CC=ca65
+LD=ld65
+CFLAGS=-t nes -g
 LFLAGS=-t nes
 
 #assemble and link
