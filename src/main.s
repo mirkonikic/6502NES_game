@@ -118,7 +118,7 @@
 	;Not used, must be filled with all zeros
 	.byte $00, $00, $00, "M", "I", "R", "K", "O"
 
-.include "alias.asm"
+.include "intro/alias.asm"
 .segment "ZEROPAGE"
 world: .res 2	;16 bit addressing to load map
 button_state: .res 1	;8 bits to store button information
@@ -258,20 +258,20 @@ splash_screen:
 	;CREDITS...
 	;
 	;THAN SUDDENLY BLACK SCREEN
-	.include "splash_screen.asm"
+	.include "intro/splash_screen.asm"
 
 intro:
 	;harry falls from top of the screen
 	;gets up in middle of screen
 	;stands up and other letters appear
 	;'press start to play' starts blinking
-	.include "intro_screen.asm"
+	.include "intro/intro_screen.asm"
 
 info_tutorial:
 	;text about john conway and game of life
 	;text on how to play with images
 	;press start to play
-	.include "info_screen.asm"
+	.include "intro/info_screen.asm"
 
 ;set selection panel to top left
 ;on arrow press, one of these two increases
@@ -290,7 +290,7 @@ start:
 	;With B, you make cell dead
 	;With Start you play the game
 	;With Select you pause the game
-	.include "setup_screen.asm"
+	.include "intro/setup_screen.asm"
 
 gameplay:
 	;cells are drawn, also pointer to select which are alive
@@ -298,7 +298,7 @@ gameplay:
 	;if start is pressed, every frame, every cell is stored as a bit
 	;since it can be alive or dead, it will be stored as a seq of bits
 	;each one is checked and updated
-	.include "gameplay_screen.asm"
+	.include "intro/gameplay_screen.asm"
 Loop:
 ;Init Code -> Infinite Loop -> NMI -> Graphics Updates -> Read Buttons -> Game Engine --\
 	
@@ -335,13 +335,13 @@ NMI:	;is called every VBLANK, mozda tada da pises
 ;$3F1D - $3F1F	Sprite palette 3
 
 SplashScreenData:
-.include "splash_screen.bin"
+.include "intro/splash_screen.bin"
 IntroScreenData:
-.include "intro_screen.bin"
+.include "intro/intro_screen.bin"
 InfoScreenData:
-.include "info_screen.bin"
-.include "palettes.asm"
-.include "sprites.asm"
+.include "intro/info_screen.bin"
+.include "intro/palettes.asm"
+.include "intro/sprites.asm"
 
 ;intro je na sred ekrana stoji ili animirano udje u ekran 
 ;	OO  GA OF LI	
